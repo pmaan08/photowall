@@ -3,6 +3,7 @@ import Title from './Title';
 import PhotoWall from "./PhotoWall";
 import AddPhoto from "./AddPhoto"; 
 import {Route} from 'react-router-dom';
+import {removePost} from '../redux/actions';
 
 
 // const posts = [{
@@ -28,7 +29,8 @@ import {Route} from 'react-router-dom';
 class Main extends Component {
     constructor() {
         super()
-        this.state = {
+    }
+       /* this.state = {
             posts: [ {
                 id: 0,
                 description: "beautiful landscape",
@@ -44,15 +46,15 @@ class Main extends Component {
                 id: 2,
                 description: "On a vacation!",
                 imageLink: "https://fm.cnbc.com/applications/cnbc.com/resources/img/editorial/2017/08/24/104670887-VacationExplainsTHUMBWEB.1910x1000.jpg"
-                }] ,
+                }] 
          //       screen: 'photos' //photos, addPhoto
-        }
+        } */
         //to reference the this. as a funxtion in removePhoto 
-        this.removePhoto = this.removePhoto.bind(this)
+        // this.removePhoto = this.removePhoto.bind(this)
        // this.navigate = this.navigate.bind(this)
-        console.log('constructor')
-    }
-
+    
+    
+/*  replced by actions for Redux
     removePhoto(postRemoved) {
         console.log(postRemoved.description)
         this.setState((state) => ({
@@ -71,48 +73,49 @@ class Main extends Component {
             screen: 'addPhoto'
         })
     }
-    */
-    //invoked immediately after component is inserted in the dom -lifecycles  method
+  
+*/    //invoked immediately after component is inserted in the dom -lifecycles  method
     //fetches data from external API 
-    componentDidMount() { 
-      // const data  = SimulateFetchFromDatabase()
+    //componentDidMount() { 
+      //  this.props.removePost(1)
+        // const data  = SimulateFetchFromDatabase()
        //this.setState({
         //posts: data 
        //})
-       console.log('componentDidMount')
-    }
+    //}
 
     // when state is re-rendered
     componentDidUpdate(prevProps, prevState) {
-        console.log(prevState.posts)
-        console.log(this.state)
+    
     }
-
     //render method in nature  should never  return asynchronous code, Ajax request,etc
     //only render UI acc to props and states.
     //this.state.screen === 'photos' && ( logic for screen)
     //routing method
     // for multiple component use render prop or else single component use component prop
     render() {
-        console.log(this.state.posts)
         return (
         <div> 
                 <Route exact path = "/" render = {() => (
                     <div>
-                        <Title  title = {['PhotoWall']}/>
-                        <PhotoWall posts = {this.state.posts} onRemovePhoto={this.removePhoto} onNavigate = {this.navigate}/>
+                        <Title  title = {'PhotoWall'}/>
+                        <PhotoWall {...this.props} /> 
                     </div>
                 )}/>  
-                <Route path = "/AddPhoto" render = {({history}) => (
+                
+                {/*<Route path = "/AddPhoto" render = {({history}) => (
                     <AddPhoto onAddPhoto = {(addedPost) => {
                         this.addPhoto(addedPost)
                         history.push('/')
                     }} />   
-                )}/>
+                )}/>*/}
         </div> 
         )
     }
 }
+///posts = props.post , remove = posts.remove .... for {...this.props}
+/*<PhotoWall posts = {this.state.posts} onRemovePhoto={this.removePhoto} onNavigate = {this.navigate}/>*/
+
 
 // if data needs to be fetched from external API.
 

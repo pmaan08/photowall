@@ -1,11 +1,15 @@
 // webpack , babal packages required or else || create-react-app
 import React, {Component} from "react";
 import ReactDOM  from "react-dom";
-import Main from "./Components/Main";
+//import Main from "./Components/Main";
 import "./styles/stylesheet.css"
 import {BrowserRouter} from 'react-router-dom'
+import {createStore, CreateStore} from 'redux'
+import rootReducer from './redux/reducer';
+import {Provider} from 'react-redux';
+import App from './Components/App';
 
-
+const store = createStore(rootReducer)
 
 //const tasks = ['Hello World!', 'My name is Partul!', 'First web page! '];
 
@@ -31,7 +35,7 @@ import {BrowserRouter} from 'react-router-dom'
 
 
 
-ReactDOM.render(<BrowserRouter><Main/></BrowserRouter>, document.getElementById('root'));
+ReactDOM.render(<Provider store={store}><BrowserRouter><App/></BrowserRouter></Provider>, document.getElementById('root'));
 
 
 

@@ -1,6 +1,7 @@
 //import React, {Component} from 'react';
 import React from 'react';
 import PropTypes from 'prop-types';
+//import {connect} from 'react-redux';
 
 //stateless function componenet
 function Photo(props) {
@@ -10,17 +11,24 @@ function Photo(props) {
                    <figcaption> <p> {post.description} </p></figcaption>
                    <div className='button-container'>
                       <button onClick = {() => {
-                        props.onRemovePhoto(post)
+                       props.removePost(props.index)
                       }}> Remove </button>
                    </div>
                    
                </figure>
 }
 
+/* use it if a deeply nested component - injecting state into child component
+function mapStateToProps(state) {
+  return {
+      posts: state
+  }
+}*/
+
 //fn.property = { ..object..}
 Photo.propTypes = {
   post: PropTypes.object.isRequired,
-  onRemovePhoto: PropTypes.func.isRequired
+  //onRemovePhoto: PropTypes.func.isRequired
 } 
 
 
@@ -38,4 +46,5 @@ Photo.propTypes = {
 //    }
 //}
 
+//export default connect(mapStateToProps)(Photo)
 export default Photo
