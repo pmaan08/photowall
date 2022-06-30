@@ -1,6 +1,8 @@
 import React, {Component} from "react";
 import Title from './Title';
 import PhotoWall from "./PhotoWall";
+import AddPhoto from "./AddPhoto"; 
+import {Route} from 'react-router-dom';
 
 
 // const posts = [{
@@ -42,10 +44,12 @@ class Main extends Component {
                 id: "2",
                 description: "On a vacation!",
                 imageLink: "https://fm.cnbc.com/applications/cnbc.com/resources/img/editorial/2017/08/24/104670887-VacationExplainsTHUMBWEB.1910x1000.jpg"
-                }] 
+                }] ,
+         //       screen: 'photos' //photos, addPhoto
         }
         //to reference the this. as a funxtion in removePhoto 
         this.removePhoto = this.removePhoto.bind(this)
+       // this.navigate = this.navigate.bind(this)
         console.log('constructor')
     }
 
@@ -56,6 +60,18 @@ class Main extends Component {
         }))
     }
 
+    addPhoto(postSubmitted) {
+        this.setState(state => ({
+            posts: state.posts.concat(postSubmitted)
+        }))
+    }
+
+   /* navigate() {
+        this.setState({
+            screen: 'addPhoto'
+        })
+    }
+    */
     //invoked immediately after component is inserted in the dom -lifecycles  method
     //fetches data from external API 
     componentDidMount() { 
@@ -74,12 +90,27 @@ class Main extends Component {
 
     //render method in nature  should never  return asynchronous code, Ajax request,etc
     //only render UI acc to props and states.
+    //this.state.screen === 'photos' && ( logic for screen)
+    //routing method
+    // for multiple component use render prop or else single component use component prop
     render() {
         console.log('render')
-        return <div> 
-                     <Title  title = {['PhotoWall']}/>
-                     <PhotoWall posts = {this.state.posts} onRemovePhoto={this.removePhoto}/>
-               </div>
+        return (
+        <div> 
+                <Route exact path = "/" render = {() => (
+                    <div>
+                        <Title  title = {['PhotoWall']}/>
+                        <PhotoWall posts = {this.state.posts} onRemovePhoto={this.removePhoto} onNavigate = {this.navigate}/>
+                    </div>
+                )}/>  
+                <Route path = "/AddPhoto" render = {({history}) => (
+                    <AddPhoto onAddPhoto = {(addedPost) => {
+                        this.addPhoto(addedPost)
+                        history.push('/')
+                    }} />   
+                )}/>
+        </div> 
+        )
     }
 }
 
