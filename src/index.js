@@ -9,7 +9,7 @@ import rootReducer from './redux/reducer';
 import {Provider} from 'react-redux';
 import App from './Components/App';
 
-const store = createStore(rootReducer)
+const store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 
 //const tasks = ['Hello World!', 'My name is Partul!', 'First web page! '];
 
