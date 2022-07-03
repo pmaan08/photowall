@@ -1,8 +1,18 @@
 import posts from '../data/posts'
+import { combineReducers } from 'redux';
 //reducer is a function
 //we use 'swtch' instead of setState as it will make it a impure function
 
-const postReducer = function allPosts(state = posts, action) {
+function comments(state=[], action) {
+
+    switch (action.type) {
+        case 'ADD_COMMENT': return [...state, action.comment]//add commment to current comment state
+        default: return state
+    }
+    return state
+}
+
+function allPosts(state = posts, action) {
     //actions  
     console.log(action.index)
     
@@ -13,6 +23,7 @@ const postReducer = function allPosts(state = posts, action) {
     } 
 }
 
+const rootReducer = combineReducers({allPosts, comments})
 
 
-export default postReducer
+export default rootReducer
