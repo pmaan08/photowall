@@ -85,6 +85,15 @@ class Main extends Component {
        //})
     //}
 
+    state = { loading: true}//load all posts when app start and pass to single compoennt
+
+    componentDidMount() {
+        this.props.startLoadingPost().then(() => {
+            this.setState({loading: false})
+        })
+        this.props.startLoadingComments()
+    }
+
     // when state is re-rendered
     componentDidUpdate(prevProps, prevState) {
     
@@ -111,7 +120,7 @@ class Main extends Component {
                 )}/>
 
                 <Route path="/single/:id" render = {(params) => (
-                     <Single {...this.props} {...params} />                 
+                     <Single loading={this.state.loading} {...this.props} {...params} />                 
                 )}/>
         </div> 
         )
