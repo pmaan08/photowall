@@ -1,3 +1,3 @@
 ** PHOTOWALL**
 
-Instagram like app built in React
+Reactapp to clone basic Instagram architecture
